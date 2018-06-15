@@ -27,20 +27,36 @@ def list(array)
 end
 
 def play(songs)
-  binding.pry
   numbers = []
   songs.each_with_index do |tune, ind|
-  numbers << ind + 1
+    numbers << ind + 1
   end
   puts "Please enter a song name or number:"
   input = gets.chomp
-  if input == input.to_i && numbers.include?(input)
-    songs.each_with_index do |song, index|
-      if input == index + 1
-        puts "Playing #{song}"
-      end
-    end
-  elsif input == input.to_i && !numbers.include?(input)
+  if numbers.include?(input.to_i)
+    puts "Playing #{songs[input.to_i - 1]}"
+  elsif songs.include?(input)
+    puts "Playing #{input}"
+  else
     puts "Invalid input, please try again"
+  end
+end
+
+def exit_jukebox
+  puts "Goodbye"
+end
+
+def run(songs)
+  help
+  puts "Please enter a command:"
+  command = gets.chomp
+  while command != exit
+    if command == "help"
+      help
+    elsif command == "play"
+      play
+    elsif command == "list"
+      list
+    end
   end
 end
